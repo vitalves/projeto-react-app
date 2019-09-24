@@ -21,7 +21,8 @@ yarn create react-app gitrepositories
 - Pugins do VsCode: EsLint e Prettier
 
 **Gerar o arquivo _.editorconfig_ na raiz**
-Acrescentar _end_of_line = lf_ e alterar _trim_trailing_whitespace_ e _insert_final_newline_ para _TRUE_:
+- Acrescentar: _end_of_line = lf_
+- Alterar: _trim_trailing_whitespace_ e _insert_final_newline_ para _TRUE_:
 
 ```js
 end_of_line = lf;
