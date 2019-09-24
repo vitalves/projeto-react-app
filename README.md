@@ -78,7 +78,7 @@ rules: {
     "warn",
     { extensions: [ '.jsx', '.js'] }
   ],
-  'import/prettier-default-export': 'off'
+  'import/prefer-default-export': 'off'
 },
 ```
 
@@ -95,4 +95,9 @@ rules: {
 
 ```js
 yarn add react-router-dom
+```
+## Styled Compoments
+
+```js
+yarn add styled-components
 ```
