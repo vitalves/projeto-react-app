@@ -41,7 +41,7 @@ yarn create react-app gitrepositories
   *Javascript
    ```
 
-  OBS: Remover o package-lock.json e dá um *yarn*
+  *OBS: Remover o package-lock.json e dá um **yarn***
 
 
 
