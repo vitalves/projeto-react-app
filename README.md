@@ -45,6 +45,7 @@ yarn eslint --init
 *to check syntax, find problems, and enforce code style
 *javascript modules (import/export)
 *React
+*jsx
 *Browser
 *Use popular style guide
 *Airbnb
@@ -91,3 +92,7 @@ rules: {
 ```
 
 ## Roteamento no React:
+
+```js
+yarn add react-router-dom
+```
