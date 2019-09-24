@@ -69,5 +69,23 @@ yarn add prettier eslint-config-prettier eslint-plugin-prettier babel-eslint -D
 // +
 "parser": "babel-eslint",
 "plugins": [ "react", "prettier" ],
+// +
+rules: {
+  "prettier/prettier": "error",
+  "react/jsx-filename-extension": [
+    "warn",
+    { extensions: [ '.jsx', '.js'] }
+  ],
+  'import/prettier-default-export': 'off'
+},
+```
+
+- Criar o arquivo *.prettierrc* e configurar:
+
+```js
+{
+  "singleQuote": true,
+  "trailingComma": "es5"
+}
 ```
 
