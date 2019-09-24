@@ -32,13 +32,13 @@ yarn create react-app gitrepositories
   ```js
   yarn eslint --init
 
-  *to check syntax, find problems, and enforce code style*
-  *javascript modules (import/export)*
-  *React*
-  *Browser*
-  *Use popular style guide*
-  *Airbnb*
-  *Javascript*
+  *to check syntax, find problems, and enforce code style
+  *javascript modules (import/export)
+  *React
+  *Browser
+  *Use popular style guide
+  *Airbnb
+  *Javascript
    ```
 
   OBS: Remover o package-lock.json e dá um *yarn*
