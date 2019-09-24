@@ -5,47 +5,69 @@
 ```js
 yarn create react-app gitrepositories
 ```
-**gitrepositories:** *Nome do projeto.*
 
-**Deleta as conffigurações do *eslint* do  *packeage.json* pois será reconfigurado manualmente em arquivo separado**
+**gitrepositories:** _Nome do projeto._
+
+**Deleta as conffigurações do _eslint_ do _packeage.json_ pois será reconfigurado manualmente em arquivo separado**
+
 ```js
 "eslintConfig": {
     "extends": "react-app"
   },
-  ```
+```
 
-  ## Configurar o ambiente de desenvolvimento:
+## Configurar o ambiente de desenvolvimento:
 
-  **Gerar o arquivo *.editorconfig* na raiz**
-  alterar para *TRUE*:
-  ```js
-  end_of_line = lf
-  trim_trailing_whitespace = true
-  insert_final_newline = true
-  ```
+- Pugins do VsCode: EsLint e Prettier
 
-  **Instalar o eslint como dependência de desenvolvimento**
-  ```js
-  yarn add eslint -D
-  ```
-  *CONFIGURAR O ESLINT*:
-  ```js
-  yarn eslint --init
+**Gerar o arquivo _.editorconfig_ na raiz**
+Acrescentar _end_of_line = lf_ e alterar _trim_trailing_whitespace_ e _insert_final_newline_ para _TRUE_:
 
-  *to check syntax, find problems, and enforce code style
-  *javascript modules (import/export)
-  *React
-  *Browser
-  *Use popular style guide
-  *Airbnb
-  *Javascript
-   ```
+```js
+end_of_line = lf;
+trim_trailing_whitespace = true;
+insert_final_newline = true;
+```
 
-  *OBS: Remover o package-lock.json e dá um **yarn***
+**Instalar o eslint como dependência de desenvolvimento**
 
+```js
+yarn add eslint -D
+```
 
+_CONFIGURAR O ESLINT_:
 
+```js
+yarn eslint --init
 
+// OPCOES A SEREM DEFINIDAS:
+*to check syntax, find problems, and enforce code style
+*javascript modules (import/export)
+*React
+*Browser
+*Use popular style guide
+*Airbnb
+*Javascript
+```
 
+*OBS: Remover o package-lock.json e dá um **yarn\***
 
+_CONFIGURAR O PRETTIER_:
+
+```js
+yarn add prettier eslint-config-prettier eslint-plugin-prettier babel-eslint -D
+```
+
+- ajustar configs no arquivo *.eslintrc.js*:
+
+```js
+"extends": [
+    "airbnb",
+    "prettier",
+    "prettier/react"
+],
+// +
+"parser": "babel-eslint",
+"plugins": [ "react", "prettier" ],
+```
 
