@@ -29,7 +29,7 @@ trim_trailing_whitespace = true;
 insert_final_newline = true;
 ```
 
-**Instalar o eslint como dependência de desenvolvimento**
+**Instalar o *eslint* como dependência de desenvolvimento:**
 
 ```js
 yarn add eslint -D
