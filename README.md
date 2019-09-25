@@ -110,3 +110,9 @@ yarn add styled-components
 ```js
 yarn add react-icons
 ```
+
+## Consumir API
+
+```js
+yarn add axios
+```
