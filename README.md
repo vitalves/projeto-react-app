@@ -1,6 +1,8 @@
-# projeto-react-app
+# Projeto-React-App
 
-## Projeto feito em aula do modulo 04 "Primeiro projeto com ReactJS" do curso da Rockeseat
+## Projeto feito em aula do modulo 05 "Primeiro projeto com ReactJS" do curso da Rockeseat
+
+**[ CONTEM ANOTAÇÕES, OBSERVAÇÕES E RASCUNHOS ELABORADOS DURANTE A AULA ]**
 
 _APLICAÇÃO:_
 Consumir dados da API do GitHub: Repositórios e issues.

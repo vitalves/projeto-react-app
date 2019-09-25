@@ -9,16 +9,16 @@ module.exports = {
         "prettier/react"
     ],
     globals: {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
+        Atomics: "readonly",
+        SharedArrayBuffer: "readonly"
     },
     parser: "babel-eslint",
     parserOptions: {
-        "ecmaFeatures": {
-            "jsx": true
+        ecmaFeatures: {
+            jsx: true
         },
-        "ecmaVersion": 2018,
-        "sourceType": "module"
+        ecmaVersion: 2018,
+        sourceType: "module"
     },
     plugins: [
         "react",
