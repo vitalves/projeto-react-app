@@ -2,6 +2,9 @@
 
 ## Projeto feito em aula do modulo 04 "Primeiro projeto com ReactJS" do curso da Rockeseat
 
+_APLICAÇÃO:_
+Consumir dados da API do GitHub: Repositórios e issues.
+
 ```js
 yarn create react-app gitrepositories
 ```
@@ -100,4 +103,10 @@ yarn add react-router-dom
 
 ```js
 yarn add styled-components
+```
+
+## Ícones na aplicação:
+
+```js
+yarn add react-icons
 ```
