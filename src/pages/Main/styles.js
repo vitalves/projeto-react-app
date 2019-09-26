@@ -81,13 +81,13 @@ export const SubmitButton = styled.button.attrs(props => ({
     background: #7159aa;
   }
 
-  &:hover svg {
-    animation: ${rotate90g} 2s;
-  }
-
   &[disabled] {
     cursor: not-allowed;
     opacity: 0.6;
+  }
+
+  &:hover svg {
+    animation: ${rotate90g} 2s;
   }
 
   ${props =>
