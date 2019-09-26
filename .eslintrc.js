@@ -1,7 +1,7 @@
 module.exports = {
     env: {
-        "browser": true,
-        "es6": true
+        browser: true,
+        es6: true
     },
     extends: [
         "airbnb",
@@ -12,7 +12,10 @@ module.exports = {
         Atomics: "readonly",
         SharedArrayBuffer: "readonly"
     },
-    parser: "babel-eslint",
+
+    parser: "@typescript-eslint/parser",
+    parser: 'babel-eslint',
+
     parserOptions: {
         ecmaFeatures: {
             jsx: true
@@ -23,13 +26,14 @@ module.exports = {
     plugins: [
         "react",
         "prettier",
+        "@typescript-eslint"
     ],
     rules: {
-      "prettier/prettier": "error",
+      "prettier/prettier" : "error",
       "react/jsx-filename-extension": [
         "warn",
-        { extensions: [ '.jsx', '.js'] }
+        { extensions: ['.jsx', '.js'] }
       ],
-      'import/prefer-default-export': 'off'
-    },
+      "import/prefer-default-export": "off"
+    }
 };

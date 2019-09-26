@@ -13,7 +13,7 @@ yarn create react-app gitrepositories
 
 **gitrepositories:** _Nome do projeto._
 
-**Deleta as conffigurações do _eslint_ do _packeage.json_ pois será reconfigurado manualmente em arquivo separado**
+**Deleta as configurações do _eslint_ do _packeage.json_ pois será reconfigurado manualmente em arquivo separado**
 
 ```js
 "eslintConfig": {
