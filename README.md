@@ -118,3 +118,9 @@ yarn add react-icons
 ```js
 yarn add axios
 ```
+
+## Definindo PropTypes
+
+```js
+yarn add prop-types
+```

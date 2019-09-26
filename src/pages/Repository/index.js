@@ -1,19 +1,27 @@
 /*import React from 'react';
-
 // import { Container } from './styles';
-
 export default function Repository({ match }) {
-
   const { repository } = match.params;
-
   return <h1>Repository { decodeURIComponent(repository) }</h1>;
 }
 */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import api from '../../services/api';
 
 export default class Repository extends Component {
+
+  static propTypes = {
+    // match eh um objeto porque possui outra propriedade dentro
+    match: PropTypes.shape({
+      // params tbm eh um objeto
+      params: PropTypes.shape({
+        repository: PropTypes.string,
+      })
+    }).isRequired,
+  };
 
   state = {
     repository: {},
@@ -25,11 +33,10 @@ export default class Repository extends Component {
     const { match } = this.props;
 
     const repoName = decodeURIComponent(match.params.repository);
-
+    /*
     // api.github.com/repos/rocketseat/unform
     // api.github.com/repos/rocketseat/unform/issues
-    /*
-    // EXECUTA UMA A UMA, UMA APOS A OUTRA
+    // EXECUTA UMA A UMA, UMA APOS A OUTRA:
     const response = await api.get(`/repos/${repoName}`);
     const issues = wait api.get(`/repos/${repoName}/issues`);
     */
@@ -45,7 +52,6 @@ export default class Repository extends Component {
         }
       })
     ]);
-
     // console.log(repository);
     // console.log(issues);
 
@@ -54,12 +60,7 @@ export default class Repository extends Component {
       issues: issues.data,
       loading: false,
     })
-
-
   }
-
-  //
-
 
   render() {
     const { repository, issues, loading } = this.state;
