@@ -19,10 +19,10 @@ export const Owner = styled.header`
     color: #9159c1;
     font-size:16px;
     text-decoration: none;
-  }
 
-  a:hover {
-    color: #7159aa;
+    &:hover {
+      color: #7159aa;
+    }
   }
 
   img {
@@ -30,10 +30,11 @@ export const Owner = styled.header`
     border-radius: 50%;
     margin-top: 20px;
     opacity: .95;
-  }
-  img:hover {
-    opacity: 1;
-    box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+
+    &:hover {
+      opacity: 1;
+      box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+    }
   }
 
   h1 {
