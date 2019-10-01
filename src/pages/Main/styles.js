@@ -18,7 +18,7 @@ export const Form = styled.form`
 
   input {
     flex: 1;
-    border: 1px solid #eee;
+    border: 1px solid ${props => (props.repoFailed ? '#d6400e' : '#eee')};
     padding: 10px 15px;
     border-radius: 4px;
     font-size: 16px;
@@ -77,6 +77,10 @@ export const SubmitButton = styled.button.attrs(props => ({
         animation: ${rotate} 2s linear infinite;
       }
     `}
+`;
+
+export const Alert = styled.span`
+  ${props => (props.alert ? 'color: #d6400e;margin:10px;font-size:11px': '' )}
 `;
 
 export const List = styled.ul`

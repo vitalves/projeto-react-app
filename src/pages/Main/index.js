@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import api from '../../services/api';
 
 import Container from '../../components/Container';
-import { Form, SubmitButton, List } from './styles';
+import { Form, SubmitButton, List, Alert } from './styles';
 
 /*
 export default function Main() {
@@ -25,6 +25,8 @@ export default class Main extends Component {
     newRepo: '',
     repositories: [],
     loading: false,
+    repoFailed: false,
+    alert: false
   };
 
   componentDidMount(){
@@ -54,21 +56,46 @@ export default class Main extends Component {
     this.setState({ loading: true });
 
     const { newRepo, repositories } = this.state;
-    const response = await api.get(`/repos/${newRepo}`);
 
-    const data = {
-      name: response.data.full_name,
-    };
+    try {
 
-    this.setState({
-      repositories: [...repositories, data],
-      newRepo: '',
-      loading: false,
-    });
+      if (newRepo === '') {
+        this.setState({ alert: 'O campo repositório não pode ser vazio'} )
+        throw 'O campo repositório não pode ser vazio';
+      }
+
+      if (repositories.find(rep => rep.name === newRepo)) {
+        this.setState({ alert: 'Repositório já inserido'} )
+        throw 'Repositório já inserido';
+      }
+
+      const response = await api.get(`/repos/${newRepo}`);
+
+      const data = {
+        name: response.data.full_name,
+      };
+
+      this.setState({
+        repositories: [...repositories, data],
+        newRepo: '',
+        // loading: false,
+      });
+    } catch (error) {
+
+      this.setState({ repoFailed: true, })
+      this.setState({ error: false })
+
+    } finally {
+
+      this.setState({ loading: false })
+      this.setState({ error: false })
+
+    }
+
   };
 
   render() {
-    const { newRepo, loading, repositories } = this.state;
+    const { newRepo, loading, repositories, repoFailed, alert } = this.state;
 
     return (
       <Container>
@@ -77,7 +104,8 @@ export default class Main extends Component {
           Repositórios
         </h1>
 
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit} repoFailed={repoFailed} >
+
           <input
             type="text"
             placeholder="Adicionar repositório"
@@ -94,6 +122,10 @@ export default class Main extends Component {
             )}
           </SubmitButton>
         </Form>
+
+        { (alert) &&
+          <Alert alert={alert}> { alert } </Alert>
+        }
 
         <List>
           {repositories.map(repository => (
