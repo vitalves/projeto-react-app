@@ -25,7 +25,6 @@ export default class Main extends Component {
     newRepo: '',
     repositories: [],
     loading: false,
-    repoFailed: false,
     alert: false
   };
 
@@ -53,20 +52,31 @@ export default class Main extends Component {
     e.preventDefault();
     // console.log(this.state.newRepo);
 
-    this.setState({ loading: true });
+    this.setState({
+      loading: true,
+      error: false,
+      alert: false
+    });
 
     const { newRepo, repositories } = this.state;
 
     try {
 
       if (newRepo === '') {
-        this.setState({ alert: 'O campo repositório não pode ser vazio'} )
+        this.setState({ alert: 'O campo repositório não pode ser vazio' });
         throw 'O campo repositório não pode ser vazio';
       }
 
       if (repositories.find(rep => rep.name === newRepo)) {
-        this.setState({ alert: 'Repositório já inserido'} )
+        this.setState({ alert: 'Repositório já inserido' });
         throw 'Repositório já inserido';
+      }
+
+      try {
+        const response = await api.get(`/repos/${newRepo}`);
+      } catch (error) {
+        this.setState({ alert: 'Repositório não encontrado' });
+        throw 'Repositório não encontrado'
       }
 
       const response = await api.get(`/repos/${newRepo}`);
@@ -82,20 +92,18 @@ export default class Main extends Component {
       });
     } catch (error) {
 
-      this.setState({ repoFailed: true, })
-      this.setState({ error: false })
+      this.setState({ error: true });
 
     } finally {
 
       this.setState({ loading: false })
-      this.setState({ error: false })
 
     }
 
   };
 
   render() {
-    const { newRepo, loading, repositories, repoFailed, alert } = this.state;
+    const { newRepo, loading, repositories, alert } = this.state;
 
     return (
       <Container>
@@ -104,7 +112,7 @@ export default class Main extends Component {
           Repositórios
         </h1>
 
-        <Form onSubmit={this.handleSubmit} repoFailed={repoFailed} >
+        <Form onSubmit={this.handleSubmit} error={alert} >
 
           <input
             type="text"
