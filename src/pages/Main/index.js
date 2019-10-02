@@ -64,19 +64,19 @@ export default class Main extends Component {
 
       if (newRepo === '') {
         this.setState({ alert: 'O campo repositório não pode ser vazio' });
-        throw 'O campo repositório não pode ser vazio';
+        throw new Error ('O campo repositório não pode ser vazio');
       }
 
       if (repositories.find(rep => rep.name === newRepo)) {
         this.setState({ alert: 'Repositório já inserido' });
-        throw 'Repositório já inserido';
+        throw new Error ('Repositório já inserido');
       }
 
       try {
-        const response = await api.get(`/repos/${newRepo}`);
+        await api.get(`/repos/${newRepo}`);
       } catch (error) {
         this.setState({ alert: 'Repositório não encontrado' });
-        throw 'Repositório não encontrado'
+        throw new Error ('Repositório não encontrado');
       }
 
       const response = await api.get(`/repos/${newRepo}`);

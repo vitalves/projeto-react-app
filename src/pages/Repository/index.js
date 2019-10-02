@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
 
-import { Loading, Owner, IssueList } from './styles';
+import { Loading, Owner, IssueList, FilterStates } from './styles';
 import Container from '../../components/Container';
 
 export default class Repository extends Component {
@@ -31,6 +31,7 @@ export default class Repository extends Component {
     repository: {},
     issues: [],
     loading: true,
+    filter: false,
   }
 
   async componentDidMount() {
@@ -66,8 +67,45 @@ export default class Repository extends Component {
     })
   }
 
+  async componentDidUpdate(_, prevState) {
+
+    const { repository, filter } = this.state;
+
+    console.log(this.state);
+
+    if(prevState.filter !== filter) {
+
+      console.log(filter);
+
+      const issues = await api.get(`/repos/${repository.full_name}/issues`, {
+        params: {
+          state: filter,
+          per_page: 5,
+        }
+      })
+
+      this.setState({
+        issues: issues.data,
+      })
+    }
+  }
+
+  filterAll = e => {
+    this.setState({ filter: e.target.value })
+  };
+
+  filterOpen = e => {
+    this.setState({ filter: e.target.value })
+  };
+
+  filterClosed = e => {
+    this.setState({ filter: e.target.value })
+  };
+
+
+
   render() {
-    const { repository, issues, loading } = this.state;
+    const { repository, issues, loading, filter } = this.state;
 
     if(loading) {
       return <Loading> Carregado... </Loading>
@@ -75,6 +113,7 @@ export default class Repository extends Component {
 
     return(
       <Container>
+
         <Owner>
           <Link to="/" title="voltar"> Voltar aos repositórios </Link>
           <img
@@ -84,7 +123,19 @@ export default class Repository extends Component {
           <h1>{ repository.name }</h1>
           <p>{ repository.description }</p>
         </Owner>
+
         <IssueList>
+
+          <h1>Issues{filter && " " + filter }:</h1>
+
+          <FilterStates>
+
+            <button value="all" onClick={this.filterAll}>Todos</button>
+            <button value="open" onClick={this.filterOpen}> Abertos </button>
+            <button value="closed" onClick={this.filterClosed}> Fechados </button>
+
+          </FilterStates>
+
           { issues.map(issue => (
             <li key={String(issue.id)}>
               <img
