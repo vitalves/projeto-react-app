@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
 
-import { Loading, Owner, IssueList, FilterStates } from './styles';
+import { Loading, Owner, IssueList, FilterStates, Pages } from './styles';
 import Container from '../../components/Container';
 
 export default class Repository extends Component {
@@ -31,11 +31,14 @@ export default class Repository extends Component {
     repository: {},
     issues: [],
     loading: true,
-    filter: false,
+    filter: 'open',
+    per_page: 5,
+    page: 1,
   }
 
   async componentDidMount() {
     const { match } = this.props;
+    const { filter, per_page, page } = this.state;
 
     const repoName = decodeURIComponent(match.params.repository);
     /*
@@ -52,8 +55,9 @@ export default class Repository extends Component {
       api.get(`/repos/${repoName}/issues`, {
         // paramentos de url "/?state=
         params: {
-          state: 'open',
-          per_page: 5,
+          state: filter,
+          per_page,
+          page,
         }
       })
     ]);
@@ -69,18 +73,15 @@ export default class Repository extends Component {
 
   async componentDidUpdate(_, prevState) {
 
-    const { repository, filter } = this.state;
+    const { repository, filter, per_page, page } = this.state;
 
-    console.log(this.state);
-
-    if(prevState.filter !== filter) {
-
-      console.log(filter);
+    if(prevState.filter !== filter || prevState.page !== page ) {
 
       const issues = await api.get(`/repos/${repository.full_name}/issues`, {
         params: {
           state: filter,
-          per_page: 5,
+          per_page,
+          page,
         }
       })
 
@@ -102,10 +103,13 @@ export default class Repository extends Component {
     this.setState({ filter: e.target.value })
   };
 
-
+  pagination = action => {
+    const { page } = this.state;
+    this.setState({ page: action === 'back' ? page -1 : page + 1 });
+  };
 
   render() {
-    const { repository, issues, loading, filter } = this.state;
+    const { repository, issues, loading, filter, page } = this.state;
 
     if(loading) {
       return <Loading> Carregado... </Loading>
@@ -124,41 +128,91 @@ export default class Repository extends Component {
           <p>{ repository.description }</p>
         </Owner>
 
-        <IssueList>
+        { issues.length > 0 &&
 
-          <h1>Issues{filter && " " + filter }:</h1>
+          <IssueList>
 
-          <FilterStates>
+            <h1>Issues{filter && " " + filter }:</h1>
 
-            <button value="all" onClick={this.filterAll}>Todos</button>
-            <button value="open" onClick={this.filterOpen}> Abertos </button>
-            <button value="closed" onClick={this.filterClosed}> Fechados </button>
+            <FilterStates>
 
-          </FilterStates>
+              <button
+                value="all"
+                disabled={ filter === "all" }
+                onClick={this.filterAll}
+              >
+                Todos
+              </button>
+              <button
+                value="open"
+                disabled={ filter === "open" }
+                onClick={this.filterOpen}
+              >
+              Abertos
+              </button>
+              <button
+                value="closed"
+                disabled={ filter === "closed" }
+                onClick={this.filterClosed}
+              >
+                Fechados
+              </button>
 
-          { issues.map(issue => (
-            <li key={String(issue.id)}>
-              <img
-                src={issue.user.avatar_url}
-                alt={issue.user.login}
-              />
-              <div>
-                <strong>
-                  <a href={issue.html_url} title={issue.title}>
-                    {issue.title}
-                  </a>
-                  { /** LABELS */ }
-                  {issue.labels.map(label => (
-                      <span key={String(label.id)}>
-                        { label.name }
-                      </span>
-                    ))}
-                </strong>
-                <p>{issue.user.login}</p>
-              </div>
-            </li>
-          )) }
-        </IssueList>
+            </FilterStates>
+
+            { issues.map(issue => (
+              <li key={String(issue.id)}>
+                <img
+                  src={issue.user.avatar_url}
+                  alt={issue.user.login}
+                />
+                <div>
+                  <strong>
+                    <a
+                      href={issue.html_url}
+                      title={issue.title}
+                      target="_blank"
+                      rel="noopener noreferrer external nofollow"
+                    >
+                      {issue.title}
+                    </a>
+                    { /** LABELS */ }
+                    {issue.labels.map(label => (
+                        <span key={String(label.id)}>
+                          { label.name }
+                        </span>
+                      ))}
+                  </strong>
+                  <p>{issue.user.login}</p>
+                </div>
+              </li>
+            )) }
+          </IssueList>
+        }
+        { issues.length > 0 &&
+          <Pages>
+
+            <p>Página: {page}</p>
+
+            <span>
+              <button
+                type="button"
+                disabled={page < 2}
+                onClick={() => this.pagination('back')}
+              >
+                Anterior
+              </button>
+
+              <button
+                type="button"
+                disabled={issues.length < this.state.per_page }
+                onClick={() => this.pagination('next')}
+              >
+                Próxima
+              </button>
+            </span>
+          </Pages>
+        }
       </Container>
     );
   }

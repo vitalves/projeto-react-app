@@ -128,12 +128,62 @@ export const FilterStates = styled.div`
   margin: 15px auto;
 
   button {
-    border: 1px solid #DDD;
-    padding: 2px 6px;
+    width: 90px;
+    border: none;
+    background: #7159c1;
+    color: #fff;
+    padding: 4px 6px;
     border-radius: 4px;
 
     & + button{
       margin-left: 15px;
+    }
+
+    &:hover {
+      background: #7159a1;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    &[disabled] {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+`;
+
+export const Pages = styled.div`
+  p {
+    font-size: 13px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+  }
+  span {
+    display: flex;
+    justify-content: center;
+  }
+  button {
+    width: 100px;
+    margin-top: 10px;
+    padding: 4px 6px;
+    border: none;
+    border-radius: 3px;
+    background: #7159c1;
+    color: #fff;
+
+    & + button{
+      margin-left: 15px;
+    }
+
+    &:hover {
+      background: #7159a1;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    &[disabled] {
+      cursor: not-allowed;
+      opacity: 0.5;
     }
   }
 `;
