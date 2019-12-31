@@ -1,4 +1,4 @@
-# Projeto-React-App teste
+# Projeto-React-App
 
 ## Projeto feito em aula do modulo 05 "Primeiro projeto com ReactJS" do curso da Rockeseat
 
